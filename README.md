@@ -1,5 +1,3 @@
-Hier ist eine README zur Verwendung des Codes:
-
 ---
 
 # WebToDesk
