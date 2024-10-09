@@ -1,4 +1,4 @@
-```markdown
+
 # WebToDesk
 
 WebToDesk is a Go-based tool to convert websites into standalone desktop applications for macOS and Windows.
