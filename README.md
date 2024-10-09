@@ -1,102 +1,67 @@
----
+```markdown
+# WebToDesk
 
-## WebToDesk
+WebToDesk is a Go-based tool to convert websites into standalone desktop applications for macOS and Windows.
 
-`WebToDesk` ist ein Go-basiertes Tool, das eine Desktop-Anwendung erstellt, die eine Website oder eine lokale Web-App in einem nativen Fenster anzeigt. Es nutzt das `webview`-Package, um ein einfaches GUI-Fenster zu erstellen, in dem entweder eine externe URL oder lokale HTML-, CSS- und JavaScript-Dateien geladen werden.
+## Features
 
-## Funktionen
-
-- **Externen Link öffnen**: Lädt eine URL und zeigt sie in einem WebView-Fenster an.
-- **Lokale Web-App öffnen**: Lädt eine lokale HTML-Datei mit optionalen CSS- und JavaScript-Dateien.
-- **Fenstergrößenanpassung und Maximierung**: Initialisiert das Fenster mit einer benutzerdefinierten Größe und optional als maximiertes Fenster.
-- **Debugging-Modus**: Aktiviert den Debugging-Modus für Entwicklungszwecke.
-
-## Voraussetzungen
-
-- **Go** (mindestens Version 1.16)
-- Das `webview`-Go-Package. Installiere es mit:
-  ```bash
-  go get github.com/lexesv/go-webview-gui
-  ```
+- Convert any website (URL or local files) into a desktop app.
+- Customizable window size, title, and debug mode.
+- macOS `.dmg` and Windows `.exe` output options.
 
 ## Installation
 
-1. Klone das Repository:
-   ```bash
-   git clone https://github.com/dein-benutzername/WebToDesk.git
-   cd WebToDesk
+### Prerequisites
+
+- Go 1.16 or higher
+- For macOS: `create-dmg` (install via Homebrew: `brew install create-dmg`)
+- For Windows: [WiX Toolset](https://wixtoolset.org/) (for `.msi`) or [Inno Setup](https://jrsoftware.org/isdl.php)
+
+### Build Instructions
+
+#### macOS
+
+1. Install `create-dmg` if not already installed:
+
+   ```sh
+   brew install create-dmg
    ```
-2. Installiere die Abhängigkeiten:
-   ```bash
-   go mod tidy
+
+2. Build the app and create a `.dmg`:
+
+   ```sh
+   go build -o WebToDesk main.go
+   create-dmg WebToDesk
    ```
 
-## Verwendung
+#### Windows
 
-### Beispielaufruf
+1. Build the `.exe` file:
 
-Zum Starten der Anwendung öffne das Terminal und führe die Anwendung mit `go run` aus oder erstelle eine ausführbare Datei mit `go build`:
+   ```sh
+   go build -o WebToDesk.exe main.go
+   ```
 
-```bash
-go run main.go
+2. (Optional) Create an installer with WiX Toolset or Inno Setup.
+
+## Usage
+
+Convert a website to a desktop app with the following command:
+
+```sh
+./WebToDesk <url or folderPath> <AppName>
 ```
 
-Alternativ kannst du mit `go build` eine ausführbare Datei erstellen und dann die App starten:
+### Example
 
-```bash
-go build -o MyWebApp
-./MyWebApp
+Convert a URL to a desktop app:
+
+```sh
+./WebToDesk "https://example.com" "MyWebApp"
 ```
 
-### Hauptoptionen
+Convert a local folder to a desktop app:
 
-Die Hauptfunktion `NewApp` nimmt folgende Parameter entgegen:
-
-- **appname**: Der Name der Anwendung, der im Fenster angezeigt wird.
-- **width, height**: Breite und Höhe des Fensters in Pixeln.
-- **maximized**: Wenn `true`, wird das Fenster maximiert.
-- **url**: Die URL, die im Fenster angezeigt werden soll (falls gesetzt, hat diese Vorrang vor `folderPath`).
-- **folderPath**: Pfad zum lokalen Ordner, der die Dateien `index.html`, `style.css`, und `script.js` enthalten sollte.
-- **debug**: Aktiviert den Debug-Modus, falls `true`.
-
-### Parameterbeispiel
-
-```go
-app := NewApp("My App", 800, 600, true, "https://example.com", "./web/", true)
-app.Run()
+```sh
+./WebToDesk "./path/to/local/website/" "MyLocalApp"
 ```
-
-- **`"My App"`**: Name der Anwendung.
-- **`800, 600`**: Fenstergröße.
-- **`true`**: Fenster maximiert.
-- **`"https://example.com"`**: Externe URL (priorisiert über `folderPath`).
-- **`"./web/"`**: Lokaler Pfad, der `index.html` enthalten sollte.
-- **`true`**: Debugging aktiviert.
-
-### Beispiel: URL-basiertes Fenster öffnen
-
-```go
-app := NewApp("My Online App", 1024, 768, false, "https://example.com", "", false)
-app.Run()
-```
-
-### Beispiel: Lokale HTML-Anwendung laden
-
-```go
-app := NewApp("My Local App", 1024, 768, true, "", "./localApp/", true)
-app.Run()
-```
-
-Hier wird eine lokale Anwendung im Ordner `./localApp/` geöffnet. Der Ordner sollte mindestens die Datei `index.html` enthalten. CSS- und JavaScript-Dateien werden optional eingebunden, falls vorhanden.
-
-## Fehlersuche
-
-Falls beim Laden der HTML-Dateien Probleme auftreten, prüfe, ob der Pfad korrekt ist und die benötigten Dateien (`index.html`, `style.css`, `script.js`) vorhanden sind.
-
-## Lizenz
-
-Dieses Projekt steht unter der MIT-Lizenz.
-
----
-
-Diese README enthält alle wichtigen Schritte und Beispiele, um die Anwendung effizient zu nutzen.
