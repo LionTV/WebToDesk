@@ -1,6 +1,6 @@
 # WebToDesk
 
-`WebToDesk` ist ein Go-basiertes Tool, das eine Desktop-Anwendung erstellt, die eine Website oder eine lokale Web-App in einem nativen Fenster anzeigt. Es nutzt das `webview`-Package, um ein einfaches GUI-Fenster zu erstellen, in dem entweder eine externe URL oder lokale HTML-, CSS- und JavaScript-Dateien geladen werden.
+`WebToDesk` ist ein Go-basiertes lightweight Tool, das eine Desktop-Anwendung erstellt, die eine Website oder eine lokale Web-App in einem nativen Fenster anzeigt. Es nutzt das `webview`-Package, um ein einfaches GUI-Fenster zu erstellen, in dem entweder eine externe URL oder lokale HTML-, CSS- und JavaScript-Dateien geladen werden.
 
 ## Funktionen
 
